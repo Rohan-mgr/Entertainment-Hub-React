@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Nav from "./Components/Navigation/Nav";
+import BottomNavigation from "./Components/BottomNavigation/BottomNavigation";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./Components/Pages/Home/Home";
+import Movies from "./Components/Pages/Movies/Movies";
+import Search from "./Components/Pages/Search/Search";
+import Trending from "./Components/Pages/Trending/Trending";
+import TvSeries from "./Components/Pages/TvSeries/TvSeries";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  let routes = (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/movies" element={<Movies />} />
+      <Route path="/search" element={<Search />} />
+      <Route path="/trending" element={<Trending />} />
+      <Route path="/tvseries" element={<TvSeries />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Nav />
+      {routes}
+      {props.homeScroller && !props.showBackdrop && !props.showScroller && (
+        <BottomNavigation />
+      )}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    showScroller: state.showScroller,
+    showBackdrop: state.showBackdrop,
+    homeScroller: state.homeScroller,
+  };
+};
+
+export default connect(mapStateToProps)(App);

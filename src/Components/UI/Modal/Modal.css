@@ -1,0 +1,113 @@
+.Modal {
+  z-index: 300;
+  position: fixed;
+  top: 5%;
+  width: 90%;
+  text-align: center;
+  background-color: #041562;
+  box-sizing: border-box;
+  padding: 10px 10px 13px;
+  transition: all 0.3s ease-out;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.modal__img {
+  width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+.movie__description {
+  border: 2px solid #111;
+  height: 12vh;
+  text-align: justify;
+  padding: 7px;
+  overflow-y: scroll;
+  border-radius: 7px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.modal__btn {
+  background: crimson;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  align-self: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.modal__btn a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.movie__description::-webkit-scrollbar {
+  display: none;
+}
+
+.cast__img {
+  box-sizing: border-box;
+  padding: 5px;
+  height: 31vh;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cast__img::-webkit-scrollbar {
+  display: none;
+}
+
+.cast__img img {
+  width: 81px;
+  max-height: 60%;
+  border-radius: 5px;
+  margin: 5px;
+  object-fit: cover;
+}
+
+@media (min-width: 500px) {
+  .Modal {
+    padding: 10px;
+    width: 1000px;
+    flex-direction: row;
+    top: 10%;
+  }
+  .laptop__only {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 69%;
+    padding: 10px;
+  }
+  .modal__img {
+    width: 30%;
+    max-height: 200vh;
+    object-fit: contain;
+  }
+  .cast__img {
+    height: 34vh;
+  }
+  .movie__description {
+    padding: 10px;
+  }
+  button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+.trendings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: 16vh 5px 5px;
+}
+.trendings::-webkit-scrollbar {
+  display: none;
+}
+
+.top__scroller {
+  color: #fff;
+  position: fixed;
+  bottom: 13%;
+  right: 5%;
+  height: 100px;
+  font-size: large;
+  background: red;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 90;
+}
+
+@media (min-width: 768px) {
+  .trendings {
+    justify-content: center;
+  }
+}

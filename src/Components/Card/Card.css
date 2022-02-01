@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Roboto:wght@100;300&display=swap");
+
+.card {
+  width: 169px;
+  border: 2px solid black;
+  margin: 3px;
+  border-radius: 5px;
+  padding: 5px 5px 0;
+  box-sizing: border-box;
+  color: #fff;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  background: #072083;
+}
+
+.card:hover {
+  background: #fff;
+  color: #000;
+}
+
+.card__subtitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card img {
+  max-width: 100%;
+  height: 40vh;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 200px;
+    margin: 10px;
+  }
+  .card img {
+    height: 50vh;
+  }
+}
