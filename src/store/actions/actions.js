@@ -48,3 +48,24 @@ export const endHomePageScroller = () => {
     homePage: true,
   };
 };
+
+export const startSearchText = (searchText) => {
+  return {
+    type: actionTypes.START_SEARCH_TEXT,
+    inputText: searchText,
+  };
+};
+
+export const showSearchField = () => {
+  return {
+    type: actionTypes.SHOW_SEARCH_FIELD,
+    searchField: true,
+  };
+};
+
+export const hideSearchField = () => {
+  return {
+    type: actionTypes.HIDE_SEARCH_FIELD,
+    searchField: false,
+  };
+};

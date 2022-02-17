@@ -4,7 +4,7 @@
   top: 5%;
   width: 90%;
   text-align: center;
-  background-color: #041562;
+  background-color: #353636;
   box-sizing: border-box;
   padding: 10px 10px 13px;
   transition: all 0.3s ease-out;
@@ -22,7 +22,6 @@
 }
 
 .movie__description {
-  border: 2px solid #111;
   height: 12vh;
   text-align: justify;
   padding: 7px;
@@ -31,12 +30,15 @@
   letter-spacing: 1px;
   font-weight: bold;
 }
+.movie__description::-webkit-scrollbar {
+  display: none;
+}
 
 .modal__btn {
   background: crimson;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 7px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -53,10 +55,6 @@
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   letter-spacing: 2px;
-}
-
-.movie__description::-webkit-scrollbar {
-  display: none;
 }
 
 .cast__img {
@@ -84,30 +82,37 @@
 
 @media (min-width: 500px) {
   .Modal {
-    padding: 10px;
+    padding: 1.2rem 20px;
     width: 1000px;
     flex-direction: row;
     top: 10%;
+    margin: 0 auto;
   }
   .laptop__only {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 69%;
-    padding: 10px;
+    justify-content: flex-start;
+    align-content: space-between;
+    width: 68%;
+    min-width: 68%;
+    height: 100%;
+    margin-left: 23px;
+  }
+  .laptop__only h3 {
+    text-align: left;
   }
   .modal__img {
-    width: 30%;
-    max-height: 200vh;
-    object-fit: contain;
+    min-width: 30%;
+    max-height: 73vh;
+    object-fit: cover;
+    margin: 20px 0;
   }
   .cast__img {
-    height: 34vh;
+    height: 35vh;
+    margin: 10px 0;
   }
   .movie__description {
-    padding: 10px;
-  }
-  button {
-    width: 100%;
+    padding: 5px;
+    margin: 15px 0 20px;
   }
 }

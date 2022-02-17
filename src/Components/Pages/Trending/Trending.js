@@ -7,6 +7,7 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/actions";
 import Modal from "../../UI/Modal/Modal";
+import Footer from "../Footer/Footer";
 
 function Trending(props) {
   const [Trendings, setTrendings] = useState([]);
@@ -33,7 +34,12 @@ function Trending(props) {
   }
 
   useEffect(() => {
+    props.onSearching("");
+    window.onload = () => {
+      window.scroll(0, 0);
+    };
     fetchTrendings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCardClick = (movie) => {
@@ -46,34 +52,36 @@ function Trending(props) {
   };
 
   return (
-    <div className="trendings">
-      {Trendings?.map((item) => {
-        return (
-          <Card
-            key={item.id}
-            Name={item.title || item.name}
-            ImgSrc={item.poster_path}
-            MediaType={item.media_type}
-            Rating={item.vote_average}
-            ReleaseDate={item.release_date || item.first_air_date}
-            clicked={() => handleCardClick(item)}
+    <>
+      <div className="trendings">
+        {Trendings?.map((item, index) => {
+          return (
+            <Card
+              key={item.id}
+              i={index}
+              Name={item.title || item.name}
+              ImgSrc={item.poster_path}
+              GenreIds={item.genre_ids}
+              Rating={item.vote_average}
+              ReleaseDate={item.release_date || item.first_air_date}
+              clicked={() => handleCardClick(item)}
+            />
+          );
+        })}
+        {props.showScroller ? (
+          <ArrowCircleUpIcon
+            onClick={() => window.scroll(0, 0)}
+            className="top__scroller"
           />
-        );
-      })}
-      {props.showScroller ? (
-        <ArrowCircleUpIcon
-          onClick={() => window.scroll(0, 0)}
-          className="top__scroller"
-        />
-      ) : null}
-      {props.showBackdrop && (
+        ) : null}
         <Modal
           showBackdrop={props.showBackdrop}
           BackdropHandler={handleBackdrop}
           SelectedCard={props.movie}
         />
-      )}
-    </div>
+      </div>
+      {Trendings.length !== 0 ? <Footer /> : null}
+    </>
   );
 }
 
@@ -93,6 +101,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.startMovieSelection(movie)),
     onShowBackdrop: () => dispatch(actions.showBackdrop()),
     onHideBackdrop: () => dispatch(actions.hideBackdrop()),
+    onSearching: (searchText) => dispatch(actions.startSearchText(searchText)),
   };
 };
 

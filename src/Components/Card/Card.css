@@ -1,28 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Roboto:wght@100;300&display=swap");
 
 .card {
-  width: 169px;
+  width: 161px;
   border: 2px solid black;
-  margin: 3px;
   border-radius: 5px;
-  padding: 5px 5px 0;
+  padding: 5px 0 0;
+  margin: 2px;
   box-sizing: border-box;
   color: #fff;
-  flex-direction: column;
   font-family: "Roboto", sans-serif;
   cursor: pointer;
   transition: all 0.5s ease-out;
-  background: #072083;
-}
-
-.card:hover {
-  background: #fff;
-  color: #000;
+  background: #353636;
 }
 
 .card__subtitle {
   display: flex;
   justify-content: space-between;
+  padding: 3px;
 }
 
 .card img {
@@ -30,13 +25,28 @@
   height: 40vh;
   border-radius: 5px;
 }
+.card h4 {
+  margin-bottom: 0px;
+  text-align: left;
+  padding-left: 8px;
+}
 
 @media (min-width: 768px) {
   .card {
-    width: 200px;
-    margin: 10px;
+    width: 300px;
+    margin: 3px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
   }
   .card img {
-    height: 50vh;
+    height: 60vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 0;
+  }
+  .card__subtitle {
+    padding: 7px;
   }
 }

@@ -1,18 +1,12 @@
 .tv__Series {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  padding: 16vh 5px 5px;
+  padding: 19vh 15px 20px;
 }
 .tv__Series::-webkit-scrollbar {
   display: none;
-}
-
-@media (min-width: 768px) {
-  .tv__Series {
-    justify-content: center;
-  }
 }

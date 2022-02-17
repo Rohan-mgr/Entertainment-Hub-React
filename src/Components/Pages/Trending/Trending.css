@@ -1,11 +1,11 @@
 .trendings {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  padding: 16vh 5px 5px;
+  padding: 19vh 15px 20px;
 }
 .trendings::-webkit-scrollbar {
   display: none;
@@ -25,8 +25,8 @@
   z-index: 90;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .trendings {
-    justify-content: center;
+    justify-content: space-around;
   }
-}
+} */

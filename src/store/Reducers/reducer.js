@@ -5,6 +5,8 @@ const initialState = {
   showBackdrop: false,
   movie: {},
   homeScroller: true,
+  searchText: "",
+  searchField: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         showScroller: action.scrollerStatus,
       };
+    case actionTypes.SHOW_SEARCH_FIELD:
+      return {
+        ...state,
+        searchField: action.searchField,
+      };
+    case actionTypes.HIDE_SEARCH_FIELD:
+      return {
+        ...state,
+        searchField: action.searchField,
+      };
+    case actionTypes.START_SEARCH_TEXT: {
+      return {
+        ...state,
+        searchText: action.inputText,
+      };
+    }
     case actionTypes.START_MOVIE_SELECTION:
       return {
         ...state,

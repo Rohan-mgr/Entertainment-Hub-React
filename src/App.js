@@ -1,6 +1,5 @@
 import "./App.css";
 import Nav from "./Components/Navigation/Nav";
-import BottomNavigation from "./Components/BottomNavigation/BottomNavigation";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Components/Pages/Home/Home";
 import Movies from "./Components/Pages/Movies/Movies";
@@ -24,9 +23,6 @@ function App(props) {
     <div className="app">
       <Nav />
       {routes}
-      {props.homeScroller && !props.showBackdrop && !props.showScroller && (
-        <BottomNavigation />
-      )}
     </div>
   );
 }

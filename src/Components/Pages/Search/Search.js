@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
-import SearchIcon from "@mui/icons-material/Search";
 import axios from "../../../axios";
 import Card from "../../Card/Card";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/actions";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Modal from "../../UI/Modal/Modal";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Footer from "../Footer/Footer";
+
+const outerTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#fff",
+    },
+  },
+});
 
 function Search(props) {
-  const [searchType, setSearchType] = useState("movie");
-  const [searchText, setSearchText] = useState("");
+  const [searchType, setSearchType] = useState(0);
   const [searchResults, setSearchResults] = useState([]);
   const [isResultsFound, setResultsFound] = useState(false);
-  const handleChange = (e) => {
-    setSearchText(e.target.value);
-  };
-  const handleOptionChange = (e) => {
-    if (searchText) {
-      setResultsFound(true);
-    }
-    if (e.target.value === "tv") {
-      setSearchType("tv");
-    }
-    if (e.target.value === "movie") {
-      setSearchType("movie");
-    }
-  };
 
   async function searchContents() {
     let { data } = await axios.get(
-      `search/${searchType}?api_key=${process.env.REACT_APP_API_KEY}&query=${searchText}&language=en-US`
+      `search/${searchType === 0 ? "movie" : "tv"}?api_key=${
+        process.env.REACT_APP_API_KEY
+      }&query=${props.searchText}&language=en-US`
     );
     setResultsFound(data?.results.length === 0);
     setSearchResults(data?.results);
@@ -41,7 +39,7 @@ function Search(props) {
     window.scroll(0, 0);
     searchContents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchType]);
+  }, [searchType, props.searchText]);
 
   function handleScroller() {
     if (window.scrollY >= 1200) {
@@ -74,21 +72,20 @@ function Search(props) {
   );
   if (isResultsFound) {
     searchCmp = (
-      <h3 style={{ position: "absolute", color: "red" }}>
-        {searchType === "movie"
-          ? "No Movies Found 🚫"
-          : "No Tv Series Found 🚫"}
+      <h3 style={{ textAlign: "center", position: "absolute", color: "red" }}>
+        {searchType === 0 ? "No Movies Found 🚫" : "No Tv Series Found 🚫"}
       </h3>
     );
   }
   if (searchResults?.length > 0) {
-    searchCmp = searchResults?.map((item) => {
+    searchCmp = searchResults?.map((item, index) => {
       return (
         <Card
           key={item.id}
+          i={index}
           Name={item.title || item.name}
           ImgSrc={item.poster_path}
-          MediaType={searchType}
+          GenreIds={item.genre_ids}
           Rating={item.vote_average}
           ReleaseDate={item.release_date || item.first_air_date}
           clicked={() => handleCardClick(item)}
@@ -97,36 +94,39 @@ function Search(props) {
     });
   }
   return (
-    <div className="search">
-      <div className="search__contents">
-        <select onChange={(e) => handleOptionChange(e)}>
-          <option value="movie">Movies</option>
-          <option value="tv">Tv Series</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Search Movies or Tv Series..."
-          onChange={(e) => handleChange(e)}
+    <>
+      <ThemeProvider theme={outerTheme}>
+        <Tabs
+          className="search__contents"
+          value={searchType}
+          indicatorColor="primary"
+          variant="fullWidth"
+          textColor="primary"
+          onChange={(e, newValue) => {
+            setSearchType(newValue);
+          }}
+        >
+          <Tab style={{ color: "#fff" }} label="Movies" />
+          <Tab style={{ color: "#fff" }} label="Tv Series" />
+        </Tabs>
+      </ThemeProvider>
+      <div className="search__cards">
+        {searchCmp}
+        <Modal
+          showBackdrop={props.showBackdrop}
+          BackdropHandler={handleBackdrop}
+          SelectedCard={props.movie}
         />
-        <button className="search__btn" onClick={searchContents}>
-          <SearchIcon />
-        </button>
       </div>
-      <div className="search__cards">{searchCmp}</div>
       {props.showScroller ? (
         <ArrowCircleUpIcon
           onClick={() => window.scroll(0, 0)}
           className="top__scroller"
         />
       ) : null}
-      {props.showBackdrop && (
-        <Modal
-          showBackdrop={props.showBackdrop}
-          BackdropHandler={handleBackdrop}
-          SelectedCard={props.movie}
-        />
-      )}
-    </div>
+
+      {searchResults.length !== 0 ? <Footer /> : null}
+    </>
   );
 }
 
@@ -135,6 +135,7 @@ const mapStateToProps = (state) => {
     showScroller: state.showScroller,
     movie: state.movie,
     showBackdrop: state.showBackdrop,
+    searchText: state.searchText,
   };
 };
 
