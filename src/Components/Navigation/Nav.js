@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import "./Nav.css";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 function Nav(props) {
   const Navigate = useNavigate();
-  const [inputVisible, setInputVisible] = useState(false);
   const inputSearchRef = useRef(null);
+  const searchButtonRef = useRef(null);
   const handleLogoClick = () => {
     Navigate("/");
   };
+
   function handleChange(e) {
     props.onSearching(e.target.value);
   }
@@ -24,34 +25,14 @@ function Nav(props) {
     }
   }
 
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          alert("You clicked outside of me!");
-        }
-      }
-
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
-  useOutsideAlerter(inputSearchRef);
-
   function showSearchField() {
-    inputSearchRef.current.style = "width: 20%; opacity: 1";
+    searchButtonRef.current.style.display = "none";
+    inputSearchRef.current.style = "width: 100%; opacity: 1";
     inputSearchRef.current.focus();
   }
   function hideSearchField() {
-    setInputVisible(false);
-    inputSearchRef.current.style = "width: 0%, opacity: 0";
+    searchButtonRef.current.style.display = "block";
+    inputSearchRef.current.style = "width: 0%; opacity: 0";
   }
   return (
     <div className="nav">
@@ -68,18 +49,32 @@ function Nav(props) {
         ENTERTAINMENT HUB
       </p>
       <div className="nav__contents">
-        <input
-          ref={inputSearchRef}
-          type="text"
-          id="test"
-          placeholder="Search Movie or Tv Series..."
-          value={props.searchText}
-          onChange={(e) => handleChange(e)}
-          onKeyPress={(e) => handleKeyPress(e)}
-          onBlur={hideSearchField}
-        />
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            alignItems: "flex-end",
+            width: "20%",
+          }}
+        >
+          <input
+            ref={inputSearchRef}
+            type="text"
+            placeholder="Search Movie or Tv Series..."
+            value={props.searchText}
+            onChange={(e) => handleChange(e)}
+            onKeyPress={(e) => handleKeyPress(e)}
+            onBlur={hideSearchField}
+          />
 
-        <AiOutlineSearch className="search__icon" onClick={showSearchField} />
+          <button
+            ref={searchButtonRef}
+            className="search__icon"
+            onClick={showSearchField}
+          >
+            <AiOutlineSearch style={{ display: "block" }} />
+          </button>
+        </div>
 
         <div className="nav__links">
           <NavLink

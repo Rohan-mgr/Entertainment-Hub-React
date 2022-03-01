@@ -4,6 +4,7 @@ import "./Modal.css";
 import Backdrop from "../Backdrop/Backdrop";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { motion, AnimatePresence } from "framer-motion";
+import { genres } from "../../../Genre/genre";
 
 const modalVariants = {
   hidden: {
@@ -48,6 +49,7 @@ const Modal = (props) => {
         `${props.SelectedCard.media_type}/${props.SelectedCard.id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       )
       .then(({ data }) => {
+        console.log(data);
         setMovieCast(data.cast);
       })
       .catch((err) => {
@@ -67,6 +69,7 @@ const Modal = (props) => {
         `${props.SelectedCard.media_type}/${props.SelectedCard.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       )
       .then(({ data }) => {
+        console.log(props.SelectedCard);
         setKey(data.results[0]?.key);
       })
       .catch((err) => {
@@ -91,6 +94,32 @@ const Modal = (props) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function truncateOverview(overview) {
+    return overview?.length >= 170
+      ? overview.substring(0, 169) + " ..."
+      : overview;
+  }
+  function checkGenres(genreArray) {
+    let genreList = genreArray?.map((num) => {
+      return genres?.find((genre) => genre.id === num);
+    });
+    genreList = genreList.filter((i) => i !== undefined);
+    return genreList.map((genre) => (
+      <p
+        key={genre.id}
+        style={{
+          margin: "5px",
+          borderRadius: "7px",
+          background: "white",
+          color: "#000",
+          padding: "2px 10px",
+          fontWeight: "bold",
+        }}
+      >
+        {genre.name}
+      </p>
+    ));
+  }
   return (
     <>
       <Backdrop
@@ -109,8 +138,9 @@ const Modal = (props) => {
               opacity: props.showBackdrop ? "1" : "0",
             }}
           >
+            <h2>{`${props.SelectedCard.title || props.SelectedCard.name}`}</h2>
             <img
-              className="modal__img"
+              className="modal__banner__img"
               src={
                 props.SelectedCard.poster_path &&
                 props.SelectedCard.backdrop_path
@@ -125,7 +155,66 @@ const Modal = (props) => {
                 `${props.SelectedCard.title}` || `${props.SelectedCard.name}`
               }
             />
-            <div className="laptop__only">
+            <img
+              src={`${posterImg}${props.SelectedCard.poster_path}`}
+              className="modal__poster__img"
+              alt={props.SelectedCard.name}
+            />
+            <a
+              href={`https://www.youtube.com/watch?v=${key}`}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                position: "absolute",
+                left: "10%",
+                top: "38%",
+                padding: "20px",
+                clipPath: "circle()",
+                cursor: "pointer",
+              }}
+            >
+              <YouTubeIcon style={{ color: "red", fontSize: "2rem" }} />
+            </a>
+            <div className="movie__info">
+              <div className="genre__section">
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  {checkGenres(props.SelectedCard.genre_ids)}
+                </div>
+              </div>
+              <div className="overview">
+                <p>
+                  {props.SelectedCard.overview
+                    ? truncateOverview(props.SelectedCard.overview)
+                    : "No Description Available"}
+                </p>
+                {MovieCast.length !== 0 ? (
+                  <div className="movie__cast">
+                    {MovieCast?.map((people) => {
+                      return (
+                        <img
+                          key={people.id}
+                          src={
+                            people.profile_path
+                              ? `${posterImg}${people?.profile_path}`
+                              : noCastImg
+                          }
+                          alt={people.name}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p>No Casts Available</p>
+                )}
+              </div>
+            </div>
+            {/* <div className="laptop__only">
               <h3>{props.SelectedCard.title || props.SelectedCard.name}</h3>
               <div className="movie__description">
                 {props.SelectedCard.overview
@@ -167,7 +256,7 @@ const Modal = (props) => {
                   <span>Watch Trailer</span>
                 </a>
               </button>
-            </div>
+            </div> */}
           </motion.div>
         )}
       </AnimatePresence>

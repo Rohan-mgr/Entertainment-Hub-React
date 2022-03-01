@@ -35,9 +35,6 @@ function Trending(props) {
 
   useEffect(() => {
     props.onSearching("");
-    window.onload = () => {
-      window.scroll(0, 0);
-    };
     fetchTrendings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

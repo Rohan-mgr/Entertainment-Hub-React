@@ -34,7 +34,6 @@ function Movies(props) {
   }
   useEffect(() => {
     props.onSearching("");
-    window.onload = () => window.scroll(0, 0);
     fetchMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

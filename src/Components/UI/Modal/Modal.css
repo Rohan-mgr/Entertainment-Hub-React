@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Open+Sans&display=swap");
+
 .Modal {
   z-index: 300;
   position: fixed;
@@ -82,13 +84,81 @@
 
 @media (min-width: 500px) {
   .Modal {
-    padding: 1.2rem 20px;
-    width: 1000px;
-    flex-direction: row;
-    top: 10%;
+    width: 750px;
+    flex-direction: column;
+    top: 5%;
     margin: 0 auto;
+    padding: 0px;
   }
-  .laptop__only {
+  .Modal h2 {
+    position: absolute;
+    z-index: 1;
+    top: 25%;
+    left: 34%;
+    font-size: 2rem;
+    font-family: "Open Sans", sans-serif;
+  }
+  .movie__info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .movie__info .overview {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 30px 10px;
+  }
+  .overview p {
+    text-align: left;
+    letter-spacing: 1.2px;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-family: "Open Sans", sans-serif;
+  }
+  .movie__cast {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+  .movie__cast::-webkit-scrollbar {
+    display: none;
+  }
+  .movie__cast img {
+    width: 50px;
+    clip-path: circle();
+    object-fit: cover;
+    margin: 5px;
+  }
+  .movie__info .genre__section {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal__banner__img {
+    min-width: 30%;
+    max-height: 50vh;
+    object-fit: cover;
+    object-position: top left;
+    border-radius: 0;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0% 100%);
+  }
+  .Modal a {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+  }
+  .modal__poster__img {
+    position: absolute;
+    top: 20%;
+    left: 3.5%;
+    height: 45vh;
+    object-fit: contain;
+    box-shadow: 0 0 7px #111;
+  }
+
+  /* .laptop__only {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -101,12 +171,7 @@
   .laptop__only h3 {
     text-align: left;
   }
-  .modal__img {
-    min-width: 30%;
-    max-height: 73vh;
-    object-fit: cover;
-    margin: 20px 0;
-  }
+  
   .cast__img {
     height: 35vh;
     margin: 10px 0;
@@ -114,5 +179,5 @@
   .movie__description {
     padding: 5px;
     margin: 15px 0 20px;
-  }
+  } */
 }

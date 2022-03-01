@@ -11,8 +11,8 @@ const trendingVarients = {
   visible: (i) => ({
     y: 0,
     transition: {
-      delay: i * 0.3,
-      duration: 0.7,
+      delay: i * 0.2,
+      duration: 0.3,
     },
   }),
 };

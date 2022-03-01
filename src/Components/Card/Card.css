@@ -14,6 +14,10 @@
   background: #353636;
 }
 
+.card:hover svg {
+  color: yellow;
+}
+
 .card__subtitle {
   display: flex;
   justify-content: space-between;
