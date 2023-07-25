@@ -50,11 +50,12 @@ function Nav(props) {
       </p>
       <div className="nav__contents">
         <div
+          className="search__wrapper"
           style={{
             position: "absolute",
             display: "flex",
             alignItems: "flex-end",
-            width: "20%",
+            // width: "20%",
           }}
         >
           <input

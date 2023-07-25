@@ -41,7 +41,18 @@ svg {
 .search__icon:hover {
   color: #f3ce13;
 }
+.nav input:focus {
+  border-bottom: 2px solid #f3ce13;
+}
 
+.nav__links {
+  display: flex;
+  margin: 0 auto;
+}
+
+.nav__links a {
+  text-decoration: none;
+}
 @media screen and (min-width: 768px) {
   .nav__contents {
     display: flex;
@@ -64,18 +75,35 @@ svg {
     z-index: 0;
   }
 
-  .nav input:focus {
-    border-bottom: 2px solid #f3ce13;
-  }
-  .nav__links {
-    display: flex;
-    margin: 0 auto;
-  }
-  .nav__links a {
-    text-decoration: none;
-  }
+  
   .nav__links a:nth-child(1),
   .nav__links a:nth-child(2) {
     margin-right: 5rem;
+  }
+}
+@media (max-width: 468px) {
+  .nav {
+    height: 20vh;
+  }
+  .nav__links a{
+    margin: 0 20px;
+  }
+  .nav input {
+    color: #000;
+    outline: none;
+    padding: 8px;
+    background: transparent;
+    color: #fff;
+    width: 100%;
+    opacity: 1;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: all 0.4s ease-out;
+    z-index: 1;
+  }
+  .search__wrapper {
+    width: 200px;
+    margin-top: 30px;
   }
 }

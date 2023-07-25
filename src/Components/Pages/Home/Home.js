@@ -14,6 +14,7 @@ function Home(props) {
   }, []);
 
   function handleHomePageScroll() {
+    console.log(window.scrollY);
     if (window.scrollY >= 100) {
       props.onStartScrolling();
     } else {

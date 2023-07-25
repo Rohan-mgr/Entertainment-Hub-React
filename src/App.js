@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Nav from "./Components/Navigation/Nav";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -9,15 +9,19 @@ import Trending from "./Components/Pages/Trending/Trending";
 import TvSeries from "./Components/Pages/TvSeries/TvSeries";
 import { connect } from "react-redux";
 import HashLoader from "react-spinners/HashLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  z-index: 1;
+  position: absolute;
+`;
 
 function App(props) {
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  window.addEventListener("load", () => {
+    const preloader = document.querySelector(".preloader");
+    console.log(preloader);
+    preloader.classList.add("remove__preloader");
+  });
   let routes = (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -30,14 +34,13 @@ function App(props) {
   );
   return (
     <div className="app">
-      {loading ? (
-        <HashLoader color={"353636"} loading={loading} size={60} />
-      ) : (
-        <>
-          <Nav />
-          {routes}
-        </>
-      )}
+      <div className="preloader">
+        <HashLoader color={"#353636"} css={override} loading={true} size={60} />
+      </div>
+      <>
+        <Nav />
+        {routes}
+      </>
     </div>
   );
 }
